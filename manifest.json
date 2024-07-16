@@ -1,0 +1,10 @@
+{
+	"id": "gdrive-sync",
+	"name": "Google Drive Sync",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Pugin to Sync your files with a Google Drive folder",
+	"author": "Xao",
+	"authorUrl": "https://github.com/jpnacaratti",
+	"isDesktopOnly": false
+}
