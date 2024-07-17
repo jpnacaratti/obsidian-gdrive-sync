@@ -23,3 +23,6 @@ data.json
 
 # Google API
 service_account.json
+
+# Google Drive Sync Plugin
+syncfile.json
