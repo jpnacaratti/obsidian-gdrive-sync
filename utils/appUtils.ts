@@ -20,3 +20,7 @@ export function getMimeType(filePath: string) {
         default: return null;
     }
 }
+
+export function delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

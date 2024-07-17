@@ -4,10 +4,8 @@ import { App } from 'obsidian';
 import { getPath, getMimeType } from './appUtils';
 import { passDateToGoogleFormat } from './dateUtils';
 import { createWriteStream, getDirectoryName, getFileStat, mkdirSync, readFile, toNodeReadable } from './fileUtils';
-
-const PARENT_FOLDER_ID = '1KX0Ww6FvVnIhqrImwjlGl-Pj91aOEDKl'; // TODO: Make this configurable
-const PLUGIN_FOLDER_NAME = 'xao-gdrive-sync';
-const SYNC_FILE_RELATIVE_PATH = `.obsidian/plugins/${PLUGIN_FOLDER_NAME}/syncfile.json`
+import { PLUGIN_FOLDER_NAME, SYNC_FILE_RELATIVE_PATH } from 'config/constants'
+import { currentSettings } from 'settings/gdriveSettings';
 
 export function authenticate(app: App) {
     const auth = new GoogleAuth({
@@ -43,7 +41,7 @@ export async function uploadFile(auth: GoogleAuth, pathToFile: string, app: App,
         const requestBody = {
             name: fileName,
             modifiedTime: lastModifiedTime,
-            parents: [PARENT_FOLDER_ID]
+            parents: [currentSettings.folderId]
         };
 
         // Create an empty file in Google Drive Folder
@@ -188,7 +186,7 @@ export async function getCloudLastSyncDate(auth: GoogleAuth) {
     try {
         const response = await service.files.list({
             fields: 'files(modifiedTime, id)',
-            q: `'${PARENT_FOLDER_ID}' in parents and trashed=false and name='${SYNC_FILE_RELATIVE_PATH}'`
+            q: `'${currentSettings.folderId}' in parents and trashed=false and name='${SYNC_FILE_RELATIVE_PATH}'`
         });
 
         if (response.data.files?.length == 0) return null;
@@ -210,7 +208,7 @@ export async function getCloudFiles(auth: GoogleAuth) {
 
         const response = await service.files.list({
             fields: 'nextPageToken, files(modifiedTime, id, name)',
-            q: `'${PARENT_FOLDER_ID}' in parents and trashed=false`
+            q: `'${currentSettings.folderId}' in parents and trashed=false`
         });
 
         const toReturn = response.data.files;
@@ -221,7 +219,7 @@ export async function getCloudFiles(auth: GoogleAuth) {
             const nextPageResponse = await service.files.list({
                 pageToken: nextPageToken,
                 fields: 'nextPageToken, files(modifiedTime, id, name)',
-                q: `'${PARENT_FOLDER_ID}' in parents and trashed=false`
+                q: `'${currentSettings.folderId}' in parents and trashed=false`
             });
 
             toReturn?.push.apply(toReturn, nextPageResponse.data.files);
