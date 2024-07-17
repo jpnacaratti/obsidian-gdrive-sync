@@ -28,7 +28,7 @@ export async function uploadFile(auth: GoogleAuth, pathToFile: string, app: App,
         const fileStat = await getFileStat(pathToFile);
 
         if (!fileStat) {
-            console.error('File not found:', pathToFile);
+            console.log('File not found:', pathToFile);
             return;
         }
 
@@ -75,7 +75,7 @@ export async function uploadFile(auth: GoogleAuth, pathToFile: string, app: App,
 
         console.log('File uploaded successfully:', timeResponse.data.id);
     } catch (err) {
-        console.error('Error uploading file:', err);
+        console.log('Error uploading file:', err);
         throw err;
     }
 }
@@ -104,7 +104,7 @@ export async function downloadCloudFile(destPath: string, fileId: string, auth: 
                     console.log('Done receiving file.');
                 })
                 .on('error', err => {
-                    console.error('Error downloading file.', err);
+                    console.log('Error downloading file.', err);
                     reject(err);
                 })
                 .pipe(dest);
@@ -115,7 +115,7 @@ export async function downloadCloudFile(destPath: string, fileId: string, auth: 
             });
 
         }).catch(err => {
-            console.error('Error initiating download', err);
+            console.log('Error initiating download', err);
             reject(err);
         });
     });
@@ -131,7 +131,7 @@ export async function updateCloudFile(auth: GoogleAuth, pathToFile: string, file
         const fileStat = await getFileStat(pathToFile);
 
         if (!fileStat) {
-            console.error('File not found:', pathToFile);
+            console.log('File not found:', pathToFile);
             return;
         }
 
@@ -160,7 +160,7 @@ export async function updateCloudFile(auth: GoogleAuth, pathToFile: string, file
 
         console.log('File updated successfully:', timeResponse.data.id);
     } catch (err) {
-        console.error('Error updating file:', err);
+        console.log('Error updating file:', err);
         throw err;
     }
 }
@@ -196,7 +196,7 @@ export async function getCloudLastSyncDate(auth: GoogleAuth) {
         };
         
     } catch (err) {
-        console.error('Error listing files:', err);
+        console.log('Error listing files:', err);
         throw err;
     }
 }
@@ -229,7 +229,7 @@ export async function getCloudFiles(auth: GoogleAuth) {
 
         return toReturn;
     } catch (err) {
-        console.error('Error listing files:', err);
+        console.log('Error listing files:', err);
         throw err;
     }
 }

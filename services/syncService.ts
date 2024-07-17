@@ -3,15 +3,24 @@ import { getPath } from 'utils/appUtils';
 import { deleteFile, getLocalLastSyncDate, getObsidianFiles, setFileModificationTime, updateLocalSyncFile } from 'utils/fileUtils';
 import { authenticate, deleteCloudFile, downloadCloudFile, getCloudFiles, getCloudLastSyncDate, updateCloudFile, uploadFile } from 'utils/googleDriveUtils';
 import { PLUGIN_FOLDER_NAME, SYNC_FILE_RELATIVE_PATH } from 'config/constants'
+import { isConnectedToInternet } from 'utils/internetCheck';
 
 export async function syncFilesAtStart(app: App): Promise<void> {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve, _reject) => {
         try {
+
+            const connection = await isConnectedToInternet();
+            if (!connection) {
+                console.log('SyncStart: No valid internet connection, skipping...');
+                resolve();
+                return;
+            }
+
             const basePath = getPath(app);
 
             if (!basePath) {
-                console.log('Unable to get local base path');
-                reject();
+                console.log('SyncStart: Unable to get local base path');
+                resolve();
                 return;
             }
         
@@ -42,7 +51,7 @@ export async function syncFilesAtStart(app: App): Promise<void> {
         
             if (!localFiles) {
                 console.log('SyncStart: Unable get local files')
-                reject();
+                resolve();
                 return;
             }
         
@@ -51,7 +60,7 @@ export async function syncFilesAtStart(app: App): Promise<void> {
         
             if (!cloudFiles) {
                 console.log('SyncStart: Unable get Google Drive files')
-                reject();
+                resolve();
                 return;
             }
         
@@ -110,19 +119,27 @@ export async function syncFilesAtStart(app: App): Promise<void> {
             resolve();
         } catch (err) {
             console.log('Syncstart: Error on sync start file')
-            reject();
+            resolve();
         }
     });
 }
 
 export async function syncFilesAtEnd(app: App): Promise<void> {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve, _reject) => {
         try {
+
+            const connection = await isConnectedToInternet();
+            if (!connection) {
+                console.log('SyncEnd: No valid internet connection, skipping...');
+                resolve();
+                return;
+            }
+
             const basePath = getPath(app);
 
             if (!basePath) {
-                console.log('Unable to get local base path');
-                reject();
+                console.log('SyncEnd: Unable to get local base path');
+                resolve();
                 return;
             }
     
@@ -133,7 +150,7 @@ export async function syncFilesAtEnd(app: App): Promise<void> {
     
             if (!localFiles) {
                 console.log('SyncEnd: Unable get local files')
-                reject();
+                resolve();
                 return;
             }
     
@@ -142,7 +159,7 @@ export async function syncFilesAtEnd(app: App): Promise<void> {
     
             if (!cloudFiles) {
                 console.log('SyncEnd: Unable get Google Drive files')
-                reject();
+                resolve();
                 return;
             }
 
@@ -224,7 +241,7 @@ export async function syncFilesAtEnd(app: App): Promise<void> {
             resolve();
         } catch (err) {
             console.log('SyncEnd: Error on sync end file')
-            reject();
+            resolve();
         }
     });
 }
