@@ -4,91 +4,91 @@ Sync your Obsidian files with a Google Drive Folder efficiently.
 
 ## Installation
 
-Primeiro de tudo, baixe a [release mais recente](https://github.com/jpnacaratti/obsidian-gdrive-sync/releases/latest).
+First, download the [latest release](https://github.com/jpnacaratti/obsidian-gdrive-sync/releases/latest).
 
-Após finalizar o download do arquivo zip/tar.gz, extraia a pasta contida no arquivo para o diretório de plugins da sua vault do Obsidian. O caminho normalmente é: `.obsidian/plugins` (se a pasta `plugins` ainda não existir, crie-a vazia nesse diretório).
+After finishing the download of the zip/tar.gz file, extract the folder contained in the file to the plugins directory of your Obsidian vault. The path is usually: `.obsidian/plugins` (if the `plugins` folder does not exist yet, create it in this directory).
 
-Você precisará de uma Service Account configurada no Google Cloud Platform e da API do Google Drive ativada. Caso não tenha isso ativo, siga o [passo a passo a seguir](https://github.com/jpnacaratti/obsidian-gdrive-sync/edit/develop/README.md#obtaining-a-google-service-account-and-activating-google-drive-api).
+You will need a Service Account configured on the Google Cloud Platform and the Google Drive API activated. If you don't have this set up, follow the [step-by-step guide](https://github.com/jpnacaratti/obsidian-gdrive-sync/edit/develop/README.md#obtaining-a-google-service-account-and-activating-google-drive-api).
 
-Se você já possui o arquivo `.json` da Service Account, copie-o para a pasta do plugin e renomeie-o para `service_account.json`.
+If you already have the `.json` file for the Service Account, copy it to the plugin's folder and rename it to `service_account.json`.
 
 ## Configuration
 
-Com tudo configurado, abra o Obsidian e acesse a tela de configuração do plugin. Lá, você encontrará um campo para inserir o `ID` da sua pasta do Google Drive. Basta copiar o `ID` da URL no seu navegador e colá-lo nesse campo.
+With everything set up, open Obsidian and go to the plugin's configuration screen. There, you will find a field to enter the `ID` of your Google Drive folder. Just copy the `ID` from the URL in your browser and paste it into this field.
 
-O `ID` deve ser inserido de uma maneira semelhante a esta:
+The `ID` should be entered in a manner similar to this:
 
 <img src="https://i.imgur.com/09eqeek.png" alt="Example of folder ID input" width="75%">
 
-Após inserir o `ID` correto, os arquivos começarão a ser sincronizados da seguinte forma: a cada 1 minuto, todos os arquivos modificados serão enviados para a nuvem.
+After entering the correct `ID`, the files will start syncing as follows: every 1 minute, all modified files will be sent to the cloud.
 
-Boas práticas:
-- Realizar backups regulares.
-- Quando estiver prestes a fechar o Obsidian, aguarde pelo menos 1 minuto para que todos os arquivos sejam sincronizados.
-- Se utilizar o Obsidian sem internet, espere por uma conexão estável, aguarde a sincronização dos arquivos antigos e só então abra seu Obsidian em outro computador.
+Best practices:
+- Perform regular backups.
+- When about to close Obsidian, wait at least 1 minute to ensure all files are synced.
+- If you use Obsidian without internet, wait for a stable connection, ensure the old files are synced, and only then open your Obsidian on another computer.
 
-**OBS:** É estritamente necessário que a pasta do Google Drive criada esteja **PÚBLICA** e com **LIVRE ACESSO DE EDIÇÃO**.
+**Note:** It is strictly necessary that the created Google Drive folder is **PUBLIC** and with **FREE EDIT ACCESS**.
 
 ## Obtaining a Google Service Account and Activating Google Drive API
 
-Para usar o plugin, é necessário ter uma service account no Google Cloud Platform e uma conta Google ativa.
+To use the plugin, you need a service account on the Google Cloud Platform and an active Google account.
 
-O passo a passo a seguir demonstra como obter o arquivo da service account e configurá-lo no seu projeto. Também mostra como configurar sua conta do Google para permitir a sincronização.
+The following step-by-step guide shows how to obtain the service account file and configure it in your project. It also shows how to set up your Google account to allow synchronization.
 
-1. Acesse [Google Cloud Console](https://console.cloud.google.com/), aceite os termos e condições, e clique em "Agree and Continue".
+1. Access [Google Cloud Console](https://console.cloud.google.com/), accept the terms and conditions, and click "Agree and Continue".
 
     <img src="https://i.imgur.com/BShcvhT.png" alt="First step" width="55%">
 
-2. Clique no botão "Select a Project" no canto superior esquerdo da tela.
+2. Click the "Select a Project" button in the top left corner of the screen.
 
     <img src="https://i.imgur.com/ttNnQ9H.png" alt="Second step" width="55%">
 
-3. Clique no botão "New Project" no canto superior direito da janela que acabou de abrir.
-	
+3. Click the "New Project" button in the top right corner of the window that just opened.
+
     <img src="https://i.imgur.com/jwG20BO.png" alt="Third step" width="55%">
 
-4. Escolha um nome para o seu projeto (pode ser qualquer coisa) e clique em "Create".
+4. Choose a name for your project (it can be anything) and click "Create".
 
     <img src="https://i.imgur.com/k1s1zo7.png" alt="Fourth step" width="55%">
 
-5. Aguarde um pouco até o projeto ser criado e, quando estiver tudo ok, selecione o projeto.
+5. Wait a moment for the project to be created and, when it's ready, select the project.
 
     <img src="https://i.imgur.com/zH11Ehm.png" alt="Fifth step" width="55%">
 
-6. Após o projeto ser selecionado e carregado, abra a aba de "Service Accounts".
+6. After the project is selected and loaded, open the "Service Accounts" tab.
 
     <img src="https://i.imgur.com/FS81jpm.png" alt="Sixth step" width="55%">
 
-7. Clique em "Create Service Account".
+7. Click on "Create Service Account".
 
     <img src="https://i.imgur.com/E36fwNC.png" alt="Seventh step" width="55%">
 
-8. Uma nova janela irá abrir, preencha as informações dos campos e clique em "Conclude".
+8. A new window will open, fill in the required fields and click "Conclude".
 
     <img src="https://i.imgur.com/tmXJ6BG.png" alt="Eighth step" width="55%">
 
-9. Após criada, clique na Service Account.
+9. Once created, click on the Service Account.
 
     <img src="https://i.imgur.com/ailqqav.png" alt="Ninth step" width="55%">
 
-10. Navegue até a aba de "Keys" e crie uma nova chave.
+10. Navigate to the "Keys" tab and create a new key.
 
     <img src="https://i.imgur.com/VeDj1i4.png" alt="Tenth step" width="55%">
 
-11. Selecione o formato JSON e clique em "Create".
+11. Select the JSON format and click "Create".
 
     <img src="https://i.imgur.com/6zl8smh.png" alt="Eleventh step" width="55%">
 
-12. Um arquivo .json será baixado, ele é o `service_account.json` que precisamos. Coloque esse arquivo no diretório do plugin e renomeie para `service_account.json`.
+12. A .json file will be downloaded, this is the `service_account.json` we need. Place this file in the plugin's directory and rename it to `service_account.json`.
 
     <img src="https://i.imgur.com/YZyFXiP.png" alt="Twelfth step" width="55%">
 
-13. Na barra de pesquisa superior, pesquise por "Google Drive API" e clique no primeiro link equivalente que aparecer.
+13. In the top search bar, search for "Google Drive API" and click on the first relevant link that appears.
 
     <img src="https://i.imgur.com/ubqxi8w.png" alt="Thirteenth step" width="55%">
 
-14. Clique em "Enable" ou "Activate".
+14. Click on "Enable" or "Activate".
 
     <img src="https://i.imgur.com/DzbRnBe.png" alt="Fourteenth step" width="55%">
 
-Pronto! Após todos esses **14** passos, você e sua conta do Google estão devidamente configuradas e prontas para sincronizar os arquivos.
+Done! After completing these **14** steps, your Google account is properly configured and ready to sync files.
