@@ -8,9 +8,26 @@ Primeiro de tudo, baixe a [release mais recente](https://github.com/jpnacaratti/
 
 Após finalizar o download do arquivo zip/tar.gz, extraia a pasta contida no arquivo para o diretório de plugins da sua vault do Obsidian. O caminho normalmente é: `.obsidian/plugins` (se a pasta `plugins` ainda não existir, crie-a vazia nesse diretório).
 
-Você precisará de uma Service Account configurada no Google Cloud Platform e da API do Google Drive ativada. Há um passo a passo mais abaixo mostrando como realizar essas configurações.
+Você precisará de uma Service Account configurada no Google Cloud Platform e da API do Google Drive ativada. Caso não tenha isso ativo, siga o [passo a passo a seguir](https://github.com/jpnacaratti/obsidian-gdrive-sync/edit/develop/README.md#obtaining-a-google-service-account-and-activating-google-drive-api).
 
 Se você já possui o arquivo `.json` da Service Account, copie-o para a pasta do plugin e renomeie-o para `service_account.json`.
+
+## Configuration
+
+Com tudo configurado, abra o Obsidian e acesse a tela de configuração do plugin. Lá, você encontrará um campo para inserir o `ID` da sua pasta do Google Drive. Basta copiar o `ID` da URL no seu navegador e colá-lo nesse campo.
+
+O `ID` deve ser inserido de uma maneira semelhante a esta:
+
+<img src="https://i.imgur.com/09eqeek.png" alt="Example of folder ID input" width="75%">
+
+Após inserir o `ID` correto, os arquivos começarão a ser sincronizados da seguinte forma: a cada 1 minuto, todos os arquivos modificados serão enviados para a nuvem.
+
+Boas práticas:
+- Realizar backups regulares.
+- Quando estiver prestes a fechar o Obsidian, aguarde pelo menos 1 minuto para que todos os arquivos sejam sincronizados.
+- Se utilizar o Obsidian sem internet, espere por uma conexão estável, aguarde a sincronização dos arquivos antigos e só então abra seu Obsidian em outro computador.
+
+**OBS:** É estritamente necessário que a pasta do Google Drive criada esteja **PÚBLICA** e com **LIVRE ACESSO DE EDIÇÃO**.
 
 ## Obtaining a Google Service Account and Activating Google Drive API
 
@@ -74,4 +91,4 @@ O passo a passo a seguir demonstra como obter o arquivo da service account e con
 
     <img src="https://i.imgur.com/DzbRnBe.png" alt="Fourteenth step" width="55%">
 
-Pronto! Após todos esses *14* passos, você e sua conta do Google estão devidamente configuradas e prontas para sincronizar os arquivos.
+Pronto! Após todos esses **14** passos, você e sua conta do Google estão devidamente configuradas e prontas para sincronizar os arquivos.
